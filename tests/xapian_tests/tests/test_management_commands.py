@@ -73,6 +73,7 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
         call_command("clear_index", interactive=False, verbosity=0)
         self.verify_indexed_document_count(0)
 
+        old_stderr = sys.stderr
         sys.stderr = StringIO()
         call_command(
             "update_index",
@@ -80,5 +81,9 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
             workers=2,
             batchsize=5,
         )
-        self.assertNotIn("xapian.DatabaseLockError", sys.stderr.getvalue())
+        err = sys.stderr.getValue()
+        print("ERR")
+        print(err)
+        self.assertNotIn("xapian.DatabaseLockError", err)
+        sys.stderr = old_stderr
         self.verify_indexed_documents()
