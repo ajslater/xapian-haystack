@@ -14,7 +14,7 @@ from .test_backend import HaystackBackendTestCase
 
 class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
 
-    NUM_BLOG_ENTRIES = 30
+    NUM_BLOG_ENTRIES = 10
 
     def get_index(self):
         return BlogSearchIndex()
