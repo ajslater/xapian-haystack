@@ -14,7 +14,7 @@ from .test_backend import HaystackBackendTestCase
 
 class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
 
-    NUM_BLOG_ENTRIES = 75
+    NUM_BLOG_ENTRIES = 60
 
     def get_index(self):
         return BlogSearchIndex()
@@ -82,8 +82,7 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
             batchsize=5,
         )
         err = sys.stderr.getvalue()
-        print("ERR")
+        sys.stderr = old_stderr
         print(err)
         self.assertNotIn("xapian.DatabaseLockError", err)
-        sys.stderr = old_stderr
         self.verify_indexed_documents()
