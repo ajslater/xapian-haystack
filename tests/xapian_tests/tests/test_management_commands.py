@@ -78,8 +78,8 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
         call_command(
             "update_index",
             verbosity=2,
-            workers=10,
-            batchsize=5,
+            workers=5,
+            batchsize=2,
         )
         err = sys.stderr.getvalue()
         sys.stderr = old_stderr
