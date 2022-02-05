@@ -13,7 +13,7 @@ from .test_backend import HaystackBackendTestCase
 
 class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
 
-    NUM_BLOG_ENTRIES = 50
+    NUM_BLOG_ENTRIES = 20
 
     def get_index(self):
         return BlogSearchIndex()
@@ -77,11 +77,15 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
         call_command(
             "update_index",
             verbosity=2,
-            workers=10,
-            batchsize=10,
+            workers=2,
+            batchsize=5,
             stdout=out,
             stderr=err,
         )
+        print("ERR")
+        print(err.getvalue())
+        print("OUT")
+        print(out.getvalue())
         self.assertNotIn("xapian.DatabaseLockError", err.getvalue())
         self.assertNotIn("xapian.DatabaseLockError", out.getvalue())
         self.verify_indexed_documents()
