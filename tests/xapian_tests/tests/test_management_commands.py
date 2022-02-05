@@ -14,7 +14,7 @@ from .test_backend import HaystackBackendTestCase
 
 class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
 
-    NUM_BLOG_ENTRIES = 50
+    NUM_BLOG_ENTRIES = 100
 
     def get_index(self):
         return BlogSearchIndex()
@@ -78,8 +78,8 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
         call_command(
             "update_index",
             verbosity=2,
-            workers=2,
-            batchsize=5,
+            workers=10,
+            batchsize=10,
         )
         err = sys.stderr.getvalue()
         print("ERR")
