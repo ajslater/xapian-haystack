@@ -1,5 +1,6 @@
 import datetime
 import random
+import sys
 from decimal import Decimal
 from io import StringIO
 from unittest import TestCase
@@ -72,20 +73,12 @@ class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
         call_command("clear_index", interactive=False, verbosity=0)
         self.verify_indexed_document_count(0)
 
-        out = StringIO()
-        err = StringIO()
+        sys.stderr = StringIO()
         call_command(
             "update_index",
             verbosity=2,
             workers=2,
             batchsize=5,
-            stdout=out,
-            stderr=err,
         )
-        print("ERR")
-        print(err.getvalue())
-        print("OUT")
-        print(out.getvalue())
-        self.assertNotIn("xapian.DatabaseLockError", err.getvalue())
-        self.assertNotIn("xapian.DatabaseLockError", out.getvalue())
+        self.assertNotIn("xapian.DatabaseLockError", sys.stderr.getvalue())
         self.verify_indexed_documents()
