@@ -14,7 +14,7 @@ from .test_backend import HaystackBackendTestCase
 class ManagementCommandTestCase(HaystackBackendTestCase, TestCase):
     # fixtures = ["bulk_data"]
 
-    NUM_BLOG_ENTRIES = 100
+    NUM_BLOG_ENTRIES = 200
     def get_index(self):
      return BlogSearchIndex()
 
